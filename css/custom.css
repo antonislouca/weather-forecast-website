@@ -1,0 +1,125 @@
+.asterisk {
+   color: red;
+}
+
+/* .jumbotron{
+   background-image: url('/epl425/images/sunset.jpg');
+   background-size: cover;
+   background-repeat: no-repeat;
+} */
+
+body {
+   background: url(https://www.cs.ucy.ac.cy/courses/EPL425/assignments/sunset.jpg) no-repeat center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   background-size: cover;
+   -o-background-size: cover;
+   background-color: transparent;
+   font-family: Helvetica, sans-serif;
+   /* font-family: 'Roboto';
+   font-style: normal;
+  font-weight: 100; */
+}
+
+#title {
+   padding-top: 1.5em;
+   margin-top: 25px;
+   margin-left: auto;
+   margin-right: auto;
+   font-size: 2em;
+   text-align: center;
+   color: white;
+}
+
+.error-msg {
+   color: red;
+   font-size: 0.9em;
+}
+
+/* .hr-remove-line {
+   border: none;
+   background-color:transparent;
+   color: transparent;
+} */
+
+.form-setup {
+   /* padding: 1.5em; */
+   background-size: contain;
+   background-color: rgba(201, 201, 228, 0.2);
+   padding: 1em;
+}
+
+.table-setup {
+   text-align: center;
+   vertical-align: middle;
+   padding: 1.5em;
+   justify-content: center;
+}
+
+
+
+.nav-tabs .nav-item .nav-link {
+   background-color: #0080FF;
+   color: white;
+   width: 100%;
+}
+
+.nav-tabs .nav-item .nav-link.active {
+   color: #0080FF;
+   background-color: white;
+   width: 100%;
+}
+
+
+
+.tab-content .tab-pane {
+   background-color: white;
+   color: #0080FF;
+   height: auto;
+}
+
+
+.info-container-setup {
+   background-color: white;
+   border-collapse: collapse;
+   border: 0.5em solid white;
+}
+
+
+
+.map {
+   height: 400px;
+   width: 100%;
+}
+
+.buttonspace {
+   padding-top: 2.5%;
+}
+
+#submit-btn,
+#clear-btn,
+#log-btn {
+   margin-left: 0.3em;
+}
+
+#weather-img {
+   height: 90;
+   align-self: center;
+}
+
+#temp-title {
+   font-size: medium;
+}
+
+.form-floating>.bi-calendar-date+.datepicker_input+label {
+   padding-left: 3.5rem;
+   z-index: 3;
+}
+
+.table-pollution {
+   row-gap: 3em;
+}
+
+.modal-padding {
+   padding-top: 2.5em;
+}

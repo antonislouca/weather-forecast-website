@@ -1,0 +1,657 @@
+<html lang="en">
+
+<head>
+
+    <!--make display not scale-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta charset="UTF-8">
+
+    <!--boot strap add on-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!--to add roboto font-->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.0/css/all.css" rel="stylesheet">
+    <!--add my css-->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!--add open layers-->
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/css/ol.css" type="text/css">
+
+    <!--scripts-->
+
+    <!--boot strap add on-->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"
+        defer></script>
+
+    <!-- Font awesome add on. -->
+    <!-- <script src="https://kit.fontawesome.com/a877e3a18a.js" crossorigin="anonymous" defer></script> -->
+
+    <!--open layers add on-->
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"
+        defer></script>
+
+    <!--my java script file-->
+    <script src="./javascript/scripts.js" defer></script>
+
+    <title>Weather Forecast Search</title>
+    <link rel="icon" type="image/png" href="images/browser-icon.png">
+
+
+</head>
+
+<body>
+
+
+    <div class="col-12 col-md-12 col-lg-12 col-xxl-12">
+        <h1 class="display-5" id="title">Weather Forecast Search</h1>
+    </div>
+    <br>
+
+    <div class="container ">
+
+        <!-- creates the title-->
+        <form action="" id="inputform" method="post"
+            class="row g-3 needs-validation  justify-content-center  form-setup " novalidate>
+            <!-- address part of the form-->
+            <div class="col-auto col-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+                <div class="form-group">
+                    <label for="addressInput" class="form-label " id="addressLabel">Address</label>
+                    <span class="asterisk">*</span>
+                    <br>
+                    <input type="text" class="form-control" id="addressInput" pattern=".*\S.*"
+                        placeholder="Enter address" required>
+
+                    <div class="invalid-feedback" id="error-address">
+                        Please enter your address!
+                    </div>
+                </div>
+                <!--invalid msg-->
+
+            </div>
+
+            <!-- region part of the form-->
+
+            <div class="col-auto col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                <div class="form-group ">
+                    <label for="regionInput" class="form-label" id="RegionLabel">Region</label>
+                    <span class="asterisk">*</span>
+                    <br>
+                    <input type="text" class="form-control" pattern=".*\S.*" placeholder="Enter region" id="regionInput"
+                        required>
+                    <div class="invalid-feedback" id="error-region">
+                        Please enter your region!
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <!-- City selection part of the form-->
+
+            <div class="col-auto col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                <div class="form-group ">
+                    <label for="=cityInput" class="form-label" id="CityLabel">Select city</label>
+                    <span class="asterisk">*</span>
+                    <br>
+                    <select class=" form-select  dropdown-toggle" id="cityInput" required>
+                        <option selected disabled value="">Select city</option>
+                        <option value="Nicosia">Nicosia</option>
+                        <option value="Larnaka">Larnaka</option>
+                        <option value="Limassol">Limassol</option>
+                        <option value="Paphos">Paphos</option>
+                        <option value="Famagusta">Famagusta</option>
+                    </select>
+                    <div class="invalid-feedback" id="error-city">
+                        Please select your city!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Degrees part of the form-->
+            <div class="col-auto col-12 col-sm-12 col-md-12 col-lg-2 col-xl-2">
+                <div class="form-group required">
+                    <label for="Degree" class="form-label">Degree</label>
+                    <span class="asterisk">*</span>
+                    <br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radioCelsius"
+                            value="celsius" checked>
+                        <label class="form-check-label" for="radioCelsius"> &#8451</label>
+                        <!--for Celsius symbol-->
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="radiofa"
+                            value="fahrenheit">
+                        <label class="form-check-label" for="radiofa"> &#8457</label>
+                        <!--for fahrenheit symbol-->
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-auto col-12 col-sm-12 col-md-12 col-lg-6 col-xl-4 col-xxl-3 buttonspace">
+                <!--change to 3 to go in same line-->
+                <!--Search button-->
+                <button class="btn btn-primary " id="submition-btn" type="submit" title="Submit Search">
+                    <i class="fa fa-search"></i>Search
+                </button>
+
+                <!--clear button-->
+
+                <button class="btn btn-danger btn-lg" id="clear-btn" type="reset" title="Clear Form">
+                    <i class="fa fa-ban"></i>
+                </button>
+
+                <!--log button-->
+
+                <button class="btn btn-warning btn-lg" id="log-btn" type="button" data-bs-toggle="modal"
+                    data-bs-target="#modal-popup-5-requests" title="Five Most Recent Searches">
+                    <i class="fa fa-server"></i>
+                </button>
+            </div>
+        </form>
+
+
+
+        <!-- Modal for last 5 request-->
+        <div class="modal fade " id="modal-popup-5-requests" tabindex="-1" aria-labelledby="modal-popup-5-reuq"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg ">
+                <div class="modal-content col-auto ">
+                    <!-- Modal HEADER-->
+                    <div class="modal-header ">
+                        <h5 class="modal-title" id="5-request-modal-title">Last 5 requests</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <!-- Modal  BODY-->
+                    <div class="modal-body">
+                        <div class="table-responsive container">
+                            <table class="table table-light table-striped table-hover table-setup">
+                                <!--table headings-->
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Time</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">Region</th>
+                                        <th scope="col">City</th>
+                                    </tr>
+                                </thead>
+                                <!--table body-->
+                                <tbody>
+                                    <tr>
+                                        <td id="log_r0c0">N.A.</td>
+                                        <td id="log_r0c1">N.A.</td>
+                                        <td id="log_r0c2">N.A.</td>
+                                        <td id="log_r0c3">N.A.</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="log_r1c0">N.A.</td>
+                                        <td id="log_r1c1">N.A.</td>
+                                        <td id="log_r1c2">N.A.</td>
+                                        <td id="log_r1c3">N.A.</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td id="log_r2c0">N.A.</td>
+                                        <td id="log_r2c1">N.A.</td>
+                                        <td id="log_r2c2">N.A.</td>
+                                        <td id="log_r2c3">N.A.</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="log_r3c0">N.A.</td>
+                                        <td id="log_r3c1">N.A.</td>
+                                        <td id="log_r3c2">N.A.</td>
+                                        <td id="log_r3c3">N.A.</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="log_r4c0">N.A.</td>
+                                        <td id="log_r4c1">N.A.</td>
+                                        <td id="log_r4c2">N.A.</td>
+                                        <td id="log_r4c3">N.A.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Modal FOOTER -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!--RESULT container-->
+        <div class="container d-none " id="results-container">
+            <!--d-none-->
+            <hr>
+
+            <!--RESULT tab-->
+            <ul class=" nav nav-tabs  flex-column flex-md-row " role="tablist">
+                <!--nav tab area 1-->
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active " id="rnow-tab" data-bs-toggle="tab" data-bs-target="#rnow"
+                        type="button" role="tab" aria-controls="rnow" aria-selected="true">Right Now</button>
+                </li>
+                <!--nav tab area 2-->
+                <li class="nav-item " role="presentation">
+                    <button class="nav-link" id="twenty4-tab" data-bs-toggle="tab" data-bs-target="#twenty4"
+                        type="button" role="tab" aria-controls="twenty4" aria-selected="false">Next 24
+                        hours</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="polution-tab" data-bs-toggle="tab" data-bs-target="#polution-section"
+                        type="button" role="tab" aria-controls="polution-section" aria-selected="false">Air
+                        Pollution</button>
+                </li>
+            </ul>
+
+            <div class="tab-content ">
+                <div class="tab-pane fade show active flex-sm-row" id="rnow" role="tabpanel" aria-labelledby="rnow-tab">
+
+                    <!-- table info will be contained here-->
+                    <div class="info-container-setup container ">
+
+                        <div class="row">
+                            <div class="container table-responsive col-auto col-12 col-md-6 col-lg-6 col-xl-6  ">
+                                <table class="table table-striped
+                             table-hover table-setup ">
+                                    <!--table body-->
+                                    <tbody>
+                                        <tr>
+                                            <!--contains the weather image-->
+                                            <td> <img id="weather-img" src="images/default-image.png"
+                                                    alt="Image not found">
+                                            </td>
+                                            <td>
+                                                <p id="temp-title">temp-title</p>
+                                                <p id="temp" class="fs-2 fw-bold">temp</p>
+                                                <p id="temp-min" class=" text-primary d-inline">low temp</p>
+                                                <p class="d-inline"> | </p>
+                                                <p id="temp-max" class=" text-danger d-inline ">high temp</p>
+                                            </td>
+                                            <br>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Pressure</>
+                                            <td id="pressure-val">N.A.</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Humidity</td>
+                                            <td id="humidity-val">N.A.</td>
+
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Wind Speed</thd>
+                                            <td id="wind-val">N.A.</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Cloud Cover</td>
+                                            <td id="cloud-val">N.A.</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Sunrise</td>
+                                            <td id="sunrise-val">N.A.</td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Sunset</td>
+                                            <td id="sunset-val">N.A.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!--CoLumn reserved for map-->
+                            <div class="col-auto col-12 col-sm-12 col-md-5 col-lg-6 col-xl-6 col-xxl-6 " id="map-view">
+                                <div id="map" class="map"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!--NEXT 24 HOUR VIEW-->
+                <div class=" tab-pane fade flex-sm-row" id="twenty4" role="tabpanel" aria-labelledby="twenty4-tab">
+                    <div class="table-responsive container">
+                        <table class=" table table-striped info-container-setup  
+                        table-setup ">
+                            <!--table headings-->
+                            <thead>
+                                <tr>
+                                    <!--Table Columns-->
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Summary</th>
+                                    <th scope="col">Temp</th>
+                                    <th scope="col">Cloud Cover</th>
+                                    <th scope="col">Details</th>
+                                </tr>
+
+                            </thead>
+                            <!--table body-->
+                            <tbody>
+
+                                <tr>
+                                    <td scope="row" id="time-r0">N.A.</td>
+                                    <td scope="row" id="img-r0">
+                                        <img id="weather-img-r0" src="images/default-image.png" alt="Image not found">
+                                    </td>
+                                    <td scope="row" id="temp-r0">N.A.</td>
+                                    <td scope="row" id="cloud-cover-r0"> N.A. % </td>
+                                    <td scope="row"> <button id="btn-view-r0" type="button" class="btn  btn-success"
+                                            data-bs-toggle="modal" data-bs-target="#modal-popup-24h-r0">View</button>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td scope="row" id="time-r1">N.A.</td>
+                                    <td scope="row" id="img-r1">
+                                        <img id="weather-img-r1" src="images/default-image.png" alt="Image not found">
+                                    </td>
+                                    <td scope="row" id="temp-r1">N.A.</td>
+                                    <td scope="row" id="cloud-cover-r1"> N.A. % </td>
+                                    <td scope="row"> <button id="btn-view-r1" type="button" class="btn  btn-success"
+                                            data-bs-toggle="modal" data-bs-target="#modal-popup-24h-r0">View</button>
+                                    </td>
+                                </tr>
+
+
+
+                                <tr>
+                                    <td scope="row" id="time-r2">N.A.</td>
+                                    <td scope="row" id="img-r2">
+                                        <img id="weather-img-r2" src="images/default-image.png" alt="Image not found">
+                                    </td>
+                                    <td scope="row" id="temp-r2">N.A.</td>
+                                    <td scope="row" id="cloud-cover-r2"> N.A.% </td>
+                                    <td scope="row"> <button id="btn-view-r2" type="button" class="btn  btn-success"
+                                            data-bs-toggle="modal" data-bs-target="#modal-popup-24h-r0">View</button>
+                                    </td>
+                                </tr>
+
+
+
+                                <tr>
+                                    <td scope="row" id="time-r3">N.A.</td>
+                                    <td scope="row" id="img-r3">
+                                        <img id="weather-img-r3" src="images/default-image.png" alt="Image not found">
+                                    </td>
+                                    <td scope="row" id="temp-r3">N.A.</td>
+                                    <td scope="row" id="cloud-cover-r3"> N.A. % </td>
+                                    <td scope="row"> <button id="btn-view-r3" type="button" class="btn  btn-success"
+                                            data-bs-toggle="modal" data-bs-target="#modal-popup-24h-r0">View</button>
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td scope="row" id="time-r4">N.A.</td>
+                                    <td scope="row" id="img-r4">
+                                        <img id="weather-img-r4" src="images/default-image.png" alt="Image not found">
+                                    </td>
+                                    <td scope="row" id="temp-r4">N.A.</td>
+                                    <td scope="row" id="cloud-cover-r4"> N.A. % </td>
+                                    <td scope="row"> <button id="btn-view-r4" type="button" class="btn  btn-success"
+                                            data-bs-toggle="modal" data-bs-target="#modal-popup-24h-r0">View</button>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td scope="row" id="time-r5">N.A.</td>
+                                    <td scope="row" id="img-r5">
+                                        <img id="weather-img-r5" src="images/default-image.png" alt="Image not found">
+                                    </td>
+                                    <td scope="row" id="temp-r5">N.A.</td>
+                                    <td scope="row" id="cloud-cover-r5"> N.A. % </td>
+                                    <td scope="row"> <button id="btn-view-r5" type="button" class="btn  btn-success"
+                                            data-bs-toggle="modal" data-bs-target="#modal-popup-24h-r0">View</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td scope="row" id="time-r6">N.A.</td>
+                                    <td scope="row" id="img-r6">
+                                        <img id="weather-img-r6" src="images/default-image.png" alt="Image not found">
+                                    </td>
+                                    <td scope="row" id="temp-r6">N.A.</td>
+                                    <td scope="row" id="cloud-cover-r6"> N.A. % </td>
+                                    <td scope="row"> <button id="btn-view-r6" type="button" class="btn  btn-success"
+                                            data-bs-toggle="modal" data-bs-target="#modal-popup-24h-r0">View</button>
+                                    </td>
+
+                                <tr>
+                                    <td scope="row" id="time-r7">N.A.</td>
+                                    <td scope="row" id="img-r7">
+                                        <img id="weather-img-r7" src="images/default-image.png" alt="Image not found">
+                                    </td>
+                                    <td scope="row" id="temp-r7">N.A.</td>
+                                    <td scope="row" id="cloud-cover-r7"> N.A. % </td>
+                                    <td scope="row"> <button id="btn-view-r7" type="button" class="btn  btn-success"
+                                            data-bs-toggle="modal" data-bs-target="#modal-popup-24h-r0">View</button>
+                                    </td>
+                                </tr>
+                                <!-- <tr>
+                                    <td scope="row" id="time-r8">N.A.</td>
+                                    <td scope="row" id="img-r8">
+                                        <img id="weather-img-r8" src="images/default-image.png" alt="Image not found">
+                                    </td>
+                                    <td scope="row" id="temp-r8">N.A.</td>
+                                    <td scope="row" id="cloud-cover-r8"> N.A. % </td>
+                                    <td scope="row"> <button id="btn-view-r8" type="button" class="btn  btn-success"
+                                            data-bs-toggle="modal" data-bs-target="#modal-popup-24h-r0">View</button>
+                                    </td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!--polution-->
+                <div class="tab-pane fade flex-sm-row " id="polution-section" role="tabpanel"
+                    aria-labelledby="polution-tab">
+                    <div class="table-responsive container">
+                        <table class="table table-striped table-hover table-setup
+                        info-container-setup ">
+                            <!--table headings-->
+                            <thead>
+                                <tr>
+                                    <!--Table Columns-->
+                                    <th scope="col">Date - Time</th>
+                                    <th scope="col">Air Quality</th>
+                                    <th scope="col">Carbon Monoxide (CO)</th>
+                                    <th scope="col">Nitrogen Monoxide (NO)</th>
+                                    <th scope="col">Nitrogen Dioxide (NO2)</th>
+                                    <th scope="col">Ozone (O3)</th>
+                                    <th scope="col">Sulphur Dioxide (SO2)</th>
+                                    <th scope="col">Ammonia (NH3)</th>
+                                </tr>
+
+                            </thead>
+                            <!--table body-->
+                            <tbody>
+                                <tr>
+                                    <td scope="row" id="DTc0">N.A.</td>
+                                    <td scope="row" id="AQc0">N.A.</td>
+                                    <td scope="row" id="COc0">N.A.</td>
+                                    <td scope="row" id="NOc0">N.A.</td>
+                                    <td scope="row" id="NO2c0">N.A.</td>
+                                    <td scope="row" id="O3c0">N.A.</td>
+                                    <td scope="row" id="SO2c0">N.A.</td>
+                                    <td scope="row" id="NH3c0">N.A.</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row" id="DTc1">N.A.</td>
+                                    <td scope="row" id="AQc1">N.A.</td>
+                                    <td scope="row" id="COc1">N.A.</td>
+                                    <td scope="row" id="NOc1">N.A.</td>
+                                    <td scope="row" id="NO2c1">N.A.</td>
+                                    <td scope="row" id="O3c1">N.A.</td>
+                                    <td scope="row" id="SO2c1">N.A.</td>
+                                    <td scope="row" id="NH3c1">N.A.</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row" id="DTc2">N.A.</td>
+                                    <td scope="row" id="AQc2">N.A.</td>
+                                    <td scope="row" id="COc2">N.A.</td>
+                                    <td scope="row" id="NOc2">N.A.</td>
+                                    <td scope="row" id="NO2c2">N.A.</td>
+                                    <td scope="row" id="O3c2">N.A.</td>
+                                    <td scope="row" id="SO2c2">N.A.</td>
+                                    <td scope="row" id="NH3c2">N.A.</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row" id="DTc3">N.A.</td>
+                                    <td scope="row" id="AQc3">N.A.</td>
+                                    <td scope="row" id="COc3">N.A.</td>
+                                    <td scope="row" id="NOc3">N.A.</td>
+                                    <td scope="row" id="NO2c3">N.A.</td>
+                                    <td scope="row" id="O3c3">N.A.</td>
+                                    <td scope="row" id="SO2c3">N.A.</td>
+                                    <td scope="row" id="NH3c3">N.A.</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row" id="DTc4">N.A.</td>
+                                    <td scope="row" id="AQc4">N.A.</td>
+                                    <td scope="row" id="COc4">N.A.</td>
+                                    <td scope="row" id="NOc4">N.A.</td>
+                                    <td scope="row" id="NO2c4">N.A.</td>
+                                    <td scope="row" id="O3c4">N.A.</td>
+                                    <td scope="row" id="SO2c4">N.A.</td>
+                                    <td scope="row" id="NH3c4">N.A.</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row" id="DTc5">N.A.</td>
+                                    <td scope="row" id="AQc5">N.A.</td>
+                                    <td scope="row" id="COc5">N.A.</td>
+                                    <td scope="row" id="NOc5">N.A.</td>
+                                    <td scope="row" id="NO2c5">N.A.</td>
+                                    <td scope="row" id="O3c5">N.A.</td>
+                                    <td scope="row" id="SO2c5">N.A.</td>
+                                    <td scope="row" id="NH3c5">N.A.</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row" id="DTc6">N.A.</td>
+                                    <td scope="row" id="AQc6">N.A.</td>
+                                    <td scope="row" id="COc6">N.A.</td>
+                                    <td scope="row" id="NOc6">N.A.</td>
+                                    <td scope="row" id="NO2c6">N.A.</td>
+                                    <td scope="row" id="O3c6">N.A.</td>
+                                    <td scope="row" id="SO2c6">N.A.</td>
+                                    <td scope="row" id="NH3c6">N.A.</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row" id="DTc7">N.A.</td>
+                                    <td scope="row" id="AQc7">N.A.</td>
+                                    <td scope="row" id="COc7">N.A.</td>
+                                    <td scope="row" id="NOc7">N.A.</td>
+                                    <td scope="row" id="NO2c7">N.A.</td>
+                                    <td scope="row" id="O3c7">N.A.</td>
+                                    <td scope="row" id="SO2c7">N.A.</td>
+                                    <td scope="row" id="NH3c7">N.A.</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row" id="DTc8">N.A.</td>
+                                    <td scope="row" id="AQc8">N.A.</td>
+                                    <td scope="row" id="COc8">N.A.</td>
+                                    <td scope="row" id="NOc8">N.A.</td>
+                                    <td scope="row" id="NO2c8">N.A.</td>
+                                    <td scope="row" id="O3c8">N.A.</td>
+                                    <td scope="row" id="SO2c8">N.A.</td>
+                                    <td scope="row" id="NH3c8">N.A.</td>
+                                </tr>
+                                <tr>
+                                    <td scope="row" id="DTc9">N.A.</td>
+                                    <td scope="row" id="AQc9">N.A.</td>
+                                    <td scope="row" id="COc9">N.A.</td>
+                                    <td scope="row" id="NOc9">N.A.</td>
+                                    <td scope="row" id="NO2c9">N.A.</td>
+                                    <td scope="row" id="O3c9">N.A.</td>
+                                    <td scope="row" id="SO2c9">N.A.</td>
+                                    <td scope="row" id="NH3c9">N.A.</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Modal for 24 hour results-->
+        <div class="modal fade" id="modal-popup-24h-r0" tabindex="-1" role="dialog" aria-labelledby="modal-popupTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <!-- Modal HEADER-->
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="twenty-hours-title-r0">
+                            Weather in Region on Date and Time
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+
+                    <!-- Modal  BODY-->
+                    <div class="modal-body text-center" id="24hour-modal-body-r0">
+                        <div class="row">
+                            <!--content 1 img and main-->
+                            <div class="col-md-4">
+                                <br><img id="modal-img-r0" src="images/default-image.png" alt=" No image found">
+                            </div>
+                            <div class="col-md-2"></div>
+
+                            <div class="col-md-6 modal-padding" id="status-r0">
+                                main (main value)
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!--content 2 humidity/pressure wind speed-->
+                            <div class="col-md-4 fw-bold "> Humidity
+                                <br>
+                                <div id="h-value-vmodal-r0" class="fw-lighter">h value</div>
+                            </div>
+
+                            <div class="col-md-4 fw-bold"> Pressure
+                                <br>
+                                <div id="p-value-vmodal-r0" class="fw-lighter">p value</div>
+                            </div>
+
+                            <div class="col-md-4 fw-bold"> Windspeed
+                                <br>
+                                <div id="w-value-vmodal-r0" class=" fw-lighter">w value</div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Modal FOOTER -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
